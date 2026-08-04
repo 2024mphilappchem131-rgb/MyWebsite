@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GharWalaAI - Recipes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body data-page="recipes">
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><i class="fas fa-home"></i><span>GharWalaAI</span></div>
+    <ul class="sidebar-menu">
+      <li><a href="index.html"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+      <li><a href="bills.html"><i class="fas fa-file-invoice"></i> Bills</a></li>
+      <li><a href="grocery.html"><i class="fas fa-utensils"></i> Grocery</a></li>
+      <li><a href="guests.html"><i class="fas fa-users"></i> Guests</a></li>
+      <li class="active"><a href="recipes.html"><i class="fas fa-robot"></i> AI Recipes</a></li>
+      <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+    <div class="sidebar-footer"><div class="ai-status"><i class="fas fa-circle"></i> AI Active</div></div>
+  </nav>
+
+  <main class="main-content">
+    <header class="top-bar">
+      <div class="top-left"><button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button><h1>AI Recipes</h1></div>
+      <div class="header-right"><span class="date-display" id="currentDate"></span></div>
+    </header>
+
+    <section class="page-section">
+      <div class="recipe-hero">
+        <h2>What's in Your Fridge?</h2>
+        <p>Tell the AI what ingredients you have and get recipe suggestions.</p>
+        <div class="recipe-input-group">
+          <input type="text" id="recipeIngredients" placeholder="e.g. tomatoes, onions, chicken" />
+          <button class="btn-ai" onclick="generateRecipe()"><i class="fas fa-wand-magic-sparkles"></i> Generate Recipe</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="recipe-card">
+        <h3>AI Recipe Suggestions</h3>
+        <div id="recipeContent">
+          <p style="color:#64748b;">Enter ingredients above to get AI-generated Pakistani recipes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="table-card">
+        <div class="table-header">
+          <h3><i class="fas fa-bookmark"></i> Saved Recipes</h3>
+          <span id="savedRecipeCount">Total: 0</span>
+        </div>
+        <table>
+          <thead><tr><th>Recipe Name</th><th>Ingredients</th><th>Actions</th></tr></thead>
+          <tbody id="savedRecipesBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GharWalaAI - Settings</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body data-page="settings">
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><i class="fas fa-home"></i><span>GharWalaAI</span></div>
+    <ul class="sidebar-menu">
+      <li><a href="index.html"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+      <li><a href="bills.html"><i class="fas fa-file-invoice"></i> Bills</a></li>
+      <li><a href="grocery.html"><i class="fas fa-utensils"></i> Grocery</a></li>
+      <li><a href="guests.html"><i class="fas fa-users"></i> Guests</a></li>
+      <li><a href="recipes.html"><i class="fas fa-robot"></i> AI Recipes</a></li>
+      <li class="active"><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+    <div class="sidebar-footer"><div class="ai-status"><i class="fas fa-circle"></i> AI Active</div></div>
+  </nav>
+
+  <main class="main-content">
+    <header class="top-bar">
+      <div class="top-left"><button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button><h1>Settings</h1></div>
+      <div class="header-right"><span class="date-display" id="currentDate"></span></div>
+    </header>
+
+    <section class="page-section">
+      <div class="settings-card">
+        <h3>Profile</h3>
+        <form id="profileForm">
+          <div class="form-group" style="margin-bottom:12px;"><label>Family Name</label><input type="text" id="familyName" placeholder="e.g. Khan Family" /></div>
+          <div class="form-group" style="margin-bottom:12px;"><label>City</label><input type="text" id="familyCity" placeholder="e.g. Lahore" /></div>
+          <button class="btn-primary" type="submit">Save Profile</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="settings-card">
+        <h3>Notifications</h3>
+        <div class="toggle-group">
+          <label><input type="checkbox" id="notifBills" checked /> Bill Reminders</label>
+          <label><input type="checkbox" id="notifGrocery" checked /> Low Stock Alerts</label>
+          <label><input type="checkbox" id="notifGuests" checked /> Guest Reminders</label>
+          <label><input type="checkbox" id="notifRecipes" /> Daily Recipe Suggestions</label>
+        </div>
+        <button class="btn-primary" onclick="saveNotificationSettings()">Save Settings</button>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="settings-card">
+        <h3>Data Management</h3>
+        <div class="data-actions">
+          <button class="btn-secondary" onclick="exportData()"><i class="fas fa-download"></i> Export Data</button>
+          <button class="btn-secondary" onclick="importData()"><i class="fas fa-upload"></i> Import Data</button>
+          <button class="btn-danger" onclick="clearAllData()"><i class="fas fa-trash"></i> Clear All Data</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
