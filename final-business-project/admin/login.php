@@ -1,6 +1,12 @@
 <?php
+/**
+ * admin/login.php
+ * Secure admin login. Passwords are never stored as plain text: the database
+ * keeps a hash, and password_verify() compares the typed password against it.
+ */
 require '../config.php';
 
+// Already logged in, so skip the form.
 if (is_admin()) {
     header('Location: dashboard.php');
     exit;
@@ -15,13 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin = $stmt->fetch();
 
     if ($admin && password_verify($password, $admin['password_hash'])) {
+        // A new session id is generated on login to prevent session fixation.
         session_regenerate_id(true);
+
+        // Storing the id in the session is what marks this visitor as an admin.
         $_SESSION['admin_id'] = $admin['id'];
         $_SESSION['admin_name'] = $admin['name'];
         header('Location: dashboard.php');
         exit;
     }
 
+    // One general message for both wrong email and wrong password, so an
+    // attacker cannot find out which email addresses exist.
     $error = 'Invalid admin email or password.';
 }
 ?>

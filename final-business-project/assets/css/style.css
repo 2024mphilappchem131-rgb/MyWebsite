@@ -1,3 +1,19 @@
+/* ==========================================================================
+   Lahore Fresh Bakes - Main stylesheet
+   Used by both the public pages and the admin panel.
+
+   Sections in this file:
+     1. Colour variables and page basics
+     2. Public header and navigation
+     3. Home page hero
+     4. Buttons
+     5. Sections, card grid, team cards
+     6. Forms and notices
+     7. Admin panel layout and tables
+     8. Responsive rules for mobile (at the bottom)
+   ========================================================================== */
+
+/* 1. Colour variables, kept in one place so the theme is easy to change */
 :root {
     --ink: #1f2937;
     --muted: #64748b;
@@ -22,6 +38,14 @@ body {
         radial-gradient(circle at top left, rgba(180, 83, 9, 0.08), transparent 30%),
         linear-gradient(180deg, #fffaf3 0%, #fff7ed 100%);
     min-height: 100vh;
+    /* Stacks header/main/footer vertically and keeps the footer pinned to the
+       bottom of the screen even on short pages, instead of leaving a gap. */
+    display: flex;
+    flex-direction: column;
+}
+
+body > main {
+    flex: 1;
 }
 
 a {
@@ -29,6 +53,7 @@ a {
     text-decoration: none;
 }
 
+/* 2. Public header. position: sticky keeps the menu visible while scrolling */
 .site-header {
     position: sticky;
     top: 0;
@@ -164,6 +189,8 @@ a {
     text-align: center;
 }
 
+/* 5. Card grid: three columns on desktop, one column on mobile (see the
+      media query at the end of this file) */
 .grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -192,6 +219,39 @@ a {
     object-fit: cover;
     border-radius: 6px;
     background: var(--soft);
+}
+
+/* Team member cards on the About page */
+.team-card {
+    text-align: center;
+}
+
+/* Round photo. The .card img part is needed so this wins over the general
+   product image rule above. object-fit: cover stops photos looking stretched */
+.card img.team-photo,
+.team-photo {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 12px;
+    display: grid;
+    place-content: center;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--soft);
+    background: var(--soft);
+}
+
+/* Shown in place of the photo when a member has no picture uploaded yet */
+.team-initial {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--brand);
+}
+
+.team-role {
+    margin: 0 0 10px;
+    color: var(--brand);
+    font-weight: 800;
 }
 
 .price {
@@ -239,6 +299,7 @@ a {
     font-weight: 700;
 }
 
+/* 7. Admin panel: fixed sidebar on the left, content on the right */
 .admin-layout {
     display: grid;
     grid-template-columns: 240px 1fr;
@@ -319,6 +380,11 @@ a {
     text-align: center;
 }
 
+/* ==========================================================================
+   8. Responsive rules
+   On screens narrower than 820px (phones and small tablets) the multi-column
+   layouts collapse into a single column so nothing is cut off.
+   ========================================================================== */
 @media (max-width: 820px) {
     .site-header,
     .hero {

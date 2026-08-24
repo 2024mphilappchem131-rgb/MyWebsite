@@ -1,8 +1,16 @@
 <?php
+/**
+ * products.php
+ * Public Products page. Lists every product with its category and price.
+ */
 require 'config.php';
 $pageTitle = 'Products - Lahore Fresh Bakes';
 $currentPage = 'products';
+
+// Products are joined with categories through the category_id foreign key so
+// the category name can be displayed next to each product.
 $products = $pdo->query('SELECT products.*, categories.name AS category_name FROM products JOIN categories ON categories.id = products.category_id ORDER BY products.id DESC')->fetchAll();
+
 include 'header.php';
 ?>
 <section class="section">

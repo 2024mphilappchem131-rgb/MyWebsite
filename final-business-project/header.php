@@ -1,10 +1,18 @@
 <?php
+/**
+ * header.php
+ * Shared top part of every public page: the <head> section and the navigation
+ * bar. Each page sets $pageTitle and $currentPage before including this file.
+ */
+
+// $currentPage is used to highlight the active navigation link.
 $currentPage = $currentPage ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Viewport tag is required for the responsive mobile layout to work -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= e($pageTitle ?? 'Lahore Fresh Bakes') ?></title>
     <link rel="stylesheet" href="assets/css/style.css">

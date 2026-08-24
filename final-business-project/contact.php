@@ -1,10 +1,17 @@
 <?php
+/**
+ * contact.php
+ * Public Contact page. The form saves customer inquiries into the messages
+ * table, which the owner can then read in the admin panel.
+ */
 require 'config.php';
 $pageTitle = 'Contact - Lahore Fresh Bakes';
 $currentPage = 'contact';
 $success = false;
 
+// Runs only when the form has been submitted.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // A prepared statement is used so customer input cannot change the query.
     $stmt = $pdo->prepare('INSERT INTO messages (customer_name, email, phone, message) VALUES (?, ?, ?, ?)');
     $stmt->execute([
         trim($_POST['customer_name'] ?? ''),

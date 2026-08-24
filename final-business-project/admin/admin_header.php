@@ -1,4 +1,13 @@
-<?php require_admin(); ?>
+<?php
+/**
+ * admin/admin_header.php
+ * Shared top part of every admin page: the <head> section and the sidebar menu.
+ *
+ * require_admin() is called here, before any admin content is printed, so every
+ * page that includes this file is automatically protected by the login check.
+ */
+require_admin();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

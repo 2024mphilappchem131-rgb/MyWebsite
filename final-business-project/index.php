@@ -1,8 +1,16 @@
 <?php
+/**
+ * index.php
+ * Public Home page. Shows the intro banner and the three newest products.
+ */
 require 'config.php';
 $pageTitle = 'Home - Lahore Fresh Bakes';
 $currentPage = 'home';
+
+// JOIN is used so each product also shows its category name.
+// LIMIT 3 keeps the home page short; the full list is on products.php.
 $products = $pdo->query('SELECT products.*, categories.name AS category_name FROM products JOIN categories ON categories.id = products.category_id ORDER BY products.id DESC LIMIT 3')->fetchAll();
+
 include 'header.php';
 ?>
 <section class="hero">
@@ -21,6 +29,7 @@ include 'header.php';
     <h2>Popular Products</h2>
     <p class="section-lead">These are some of the most requested bakery products.</p>
     <div class="grid">
+        <?php // One card per product row returned by the query above ?>
         <?php foreach ($products as $product): ?>
             <article class="card">
                 <?php if ($product['image']): ?>

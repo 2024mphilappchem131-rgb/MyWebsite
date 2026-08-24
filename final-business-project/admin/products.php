@@ -1,8 +1,15 @@
 <?php
+/**
+ * admin/products.php
+ * Product list for the admin (the "Read" and "Delete" parts of product CRUD).
+ * Adding is in add_product.php and editing is in edit_product.php.
+ */
 require '../config.php';
 require_admin();
 
+// DELETE: remove the product row and its uploaded image file.
 if (isset($_GET['delete'])) {
+    // The image name must be read before the row is deleted.
     $stmt = $pdo->prepare('SELECT image FROM products WHERE id = ?');
     $stmt->execute([(int) $_GET['delete']]);
     $product = $stmt->fetch();
@@ -10,6 +17,7 @@ if (isset($_GET['delete'])) {
     $stmt = $pdo->prepare('DELETE FROM products WHERE id = ?');
     $stmt->execute([(int) $_GET['delete']]);
 
+    // Remove the image file too so the uploads folder stays clean.
     if ($product && $product['image']) {
         $imagePath = __DIR__ . '/../uploads/' . $product['image'];
         if (is_file($imagePath)) {
@@ -17,10 +25,12 @@ if (isset($_GET['delete'])) {
         }
     }
 
+    // Redirect so refreshing the page does not delete anything again.
     header('Location: products.php');
     exit;
 }
 
+// READ: all products with their category name for the table below.
 $products = $pdo->query('SELECT products.*, categories.name AS category_name FROM products JOIN categories ON categories.id = products.category_id ORDER BY products.id DESC')->fetchAll();
 $pageTitle = 'Manage Products';
 include 'admin_header.php';

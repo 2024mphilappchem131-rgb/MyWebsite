@@ -1,6 +1,13 @@
 <?php
+/**
+ * admin/messages.php
+ * Shows the inquiries submitted through the public contact form.
+ * The login check happens inside admin_header.php via require_admin().
+ */
 require '../config.php';
 $pageTitle = 'Customer Messages';
+
+// Newest messages first, so recent orders are seen at the top.
 $messages = $pdo->query('SELECT * FROM messages ORDER BY id DESC')->fetchAll();
 include 'admin_header.php';
 ?>

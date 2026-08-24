@@ -1,13 +1,22 @@
 <?php
+/**
+ * admin/add_product.php
+ * The "Create" part of product CRUD. Saves a new product with its image.
+ */
 require '../config.php';
 require_admin();
 
 $error = '';
+
+// Categories fill the dropdown; a product must belong to one of them because
+// products.category_id is a foreign key to categories.id.
 $categories = $pdo->query('SELECT * FROM categories ORDER BY name')->fetchAll();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+        // Validate and save the uploaded image, then store its file name.
         $image = upload_image('image', 'product');
+
         $stmt = $pdo->prepare('INSERT INTO products (category_id, name, description, price, image) VALUES (?, ?, ?, ?, ?)');
         $stmt->execute([
             (int) $_POST['category_id'],
@@ -20,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: products.php');
         exit;
     } catch (RuntimeException $uploadError) {
+        // Show why the image was rejected instead of saving an invalid product.
         $error = $uploadError->getMessage();
     }
 }

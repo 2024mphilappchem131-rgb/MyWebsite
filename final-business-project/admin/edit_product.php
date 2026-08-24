@@ -1,13 +1,21 @@
 <?php
+/**
+ * admin/edit_product.php
+ * The "Update" part of product CRUD. Loads one product into the form and
+ * saves the changes. Uploading a new image is optional when editing.
+ */
 require '../config.php';
 require_admin();
 
 $error = '';
 $categories = $pdo->query('SELECT * FROM categories ORDER BY name')->fetchAll();
+
+// Load the product named in the URL, for example edit_product.php?id=3
 $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
 $stmt->execute([(int) ($_GET['id'] ?? 0)]);
 $product = $stmt->fetch();
 
+// Invalid or missing id, so go back to the list instead of showing an error.
 if (!$product) {
     header('Location: products.php');
     exit;
@@ -15,6 +23,7 @@ if (!$product) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+        // old_image keeps the current picture when no new file is selected.
         $image = upload_image('image', 'product', $_POST['old_image'] ?? '');
         $stmt = $pdo->prepare('UPDATE products SET category_id = ?, name = ?, description = ?, price = ?, image = ? WHERE id = ?');
         $stmt->execute([
