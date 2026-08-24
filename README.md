@@ -5,7 +5,6 @@ PHP and MySQL website with an admin panel for a local bakery business in Johar T
 ## Project Structure
 
 ```text
-final-business-project/
 ├── index.php            Home page
 ├── about.php            About page + "Meet Our Team" section
 ├── products.php         Products list
